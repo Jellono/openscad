@@ -17,9 +17,10 @@ HalfInches =0.5; //One Inches to MM;
 WallThickness = 1/16 ;
 
 
+AlphaTig200();
 
 
-
+//color([.5,.5,.5])
 2InchtopShelf();
 
 
@@ -47,7 +48,6 @@ module HalfInchHandel()
 
 module 2InchtopShelf()
 {
-    AlphaTig200();
     translate ([0,ShelfWidth,(-Alpha200_height/2)+TwoInches/4]) 2InchSquareTubing(ShelfLength,"TopShelf Length");
     translate ([0,-ShelfWidth,(-Alpha200_height/2)+TwoInches/4]) 2InchSquareTubing(ShelfLength);
     
