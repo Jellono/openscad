@@ -18,19 +18,53 @@ WallThickness = 1/16 ;
 
 
 AlphaTig200();
-
-
-//color([.5,.5,.5])
 2InchtopShelf();
+//RodGuard();
 
+translate([-19,0,-24])
+    ArgonTank55();
 
+translate([-16,-5,-20])
+    RodGuard();
+
+translate([-16,5,-20])
+    RodGuard();
+
+//55 Cubic Foot Argon Tank Dimensions..
+module ArgonTank55()
+{
+    $fn=50; 
+    {
+        color([.5,.3,.1])
+        {
+            cylinder(20.5, 3.375, 3.375, true);
+            translate ([0,0,10])
+                sphere(3.375);
+        }
+        color([.9,.9,.9])
+            translate ([0,0,13])
+                cylinder(4, 1.5, 1.5, true);
+    }
+}
+
+//THis is a rod Guard for Tig Rods... 
+module RodGuard()
+{
+    $fn=50; 
+    color([0,.5,.9])
+    {
+        cylinder(24, 1, 1, true);
+        translate ([0,0,18])
+        cylinder(13, 1.14, 1.14, true);
+    }
+}
 module HalfInchHandel()
 {
         
         HandelLength=ShelfWidth*2-HandelStub;
         //echo ("Handel Length = ", HandelLength);
         //echo ("Handel Stub Length = ", HandelStub);
-        color([1,0,0])
+        //color([1,0,0])
         translate([-(HandelStub/2+.25),0,0])
         rotate([0,0,90])HalfInchSquareTubing(HandelLength,"TopShelf Handel Width");
         
@@ -48,24 +82,27 @@ module HalfInchHandel()
 
 module 2InchtopShelf()
 {
-    translate ([0,ShelfWidth,(-Alpha200_height/2)+TwoInches/4]) 2InchSquareTubing(ShelfLength,"TopShelf Length");
-    translate ([0,-ShelfWidth,(-Alpha200_height/2)+TwoInches/4]) 2InchSquareTubing(ShelfLength);
+    color([.9,.9,.9])
+    {
     
-    translate ([ShelfLength/2+TwoInches/2,0,(-Alpha200_height/2)+TwoInches/4]) 
-        rotate([0,0,90])
-            2InchSquareTubing(ShelfWidth*2+2,"TopShelf Width");
+            translate ([0,ShelfWidth,(-Alpha200_height/2)+TwoInches/4]) 2InchSquareTubing(ShelfLength,"TopShelf Length");
+            translate ([0,-ShelfWidth,(-Alpha200_height/2)+TwoInches/4]) 2InchSquareTubing(ShelfLength);
+            
+            translate ([ShelfLength/2+TwoInches/2,0,(-Alpha200_height/2)+TwoInches/4]) 
+                rotate([0,0,90])
+                    2InchSquareTubing(ShelfWidth*2+2,"TopShelf Width");
 
-    //translate ([-(ShelfLength/2+50)+TwoInches/2,0,(-Alpha200_height/2)+TwoInches/4]) 
-    translate ([-(ShelfLength/2+TwoInches/2),0,(-Alpha200_height/2)+TwoInches/4]) 
-        rotate([0,0,90])
-            2InchSquareTubing(ShelfWidth*2+2);
+            //translate ([-(ShelfLength/2+50)+TwoInches/2,0,(-Alpha200_height/2)+TwoInches/4]) 
+            translate ([-(ShelfLength/2+TwoInches/2),0,(-Alpha200_height/2)+TwoInches/4]) 
+                rotate([0,0,90])
+                    2InchSquareTubing(ShelfWidth*2+2);
 
-    //Handel
-    rotate ([0,0,180])
-        translate ([-(HandelStub/2+ShelfLength/2+TwoInches),0,-Alpha200_height/2])
-            HalfInchHandel();
+            //Handel
+            rotate ([0,0,180])
+                translate ([-(HandelStub/2+ShelfLength/2+TwoInches),0,-Alpha200_height/2])
+                    HalfInchHandel();
 
-    
+    } 
 }
 module 1InchtopShelf()
 {
