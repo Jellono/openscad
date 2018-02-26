@@ -16,18 +16,20 @@ OneInches =1; //One Inches to MM;
 HalfInches =0.5; //One Inches to MM;
 WallThickness = 1/16 ;
 
-
-AlphaTig200();
-2InchtopShelf();
+rotate([0,-10,0])
+{
+    AlphaTig200();
+    2InchtopShelf();
+}
 //RodGuard();
 
-translate([-19,0,-24])
+translate([-17,0,-24])
     ArgonTank55();
 
-translate([-16,-5,-20])
+translate([-15,-5,-22])
     RodGuard();
 
-translate([-16,5,-20])
+translate([-15,5,-22])
     RodGuard();
 
 //55 Cubic Foot Argon Tank Dimensions..
