@@ -3,23 +3,25 @@ Alpha200_width = 12;//12 inches
 Alpha200_height = 19;//19 inches
 
 ShelfLength = 25.5;
-ShelfWidth = 7.75;
+ShelfWidth = 7;
 
-HandelStub=2.5;
+HandelStub=3;
 
 
-TopShelfRotation =10;
+TopShelfRotation =8;
 
 //Tubing Stock
 TwoInches =2; //Two Inches to MM;
 OneInches =1; //One Inches to MM;
 HalfInches =0.5; //One Inches to MM;
+ThreeQuarterInches = 3/4;
 WallThickness = 1/16 ;
 
-rotate([0,-10,0])
+rotate([0,-TopShelfRotation,0])
 {
     AlphaTig200();
-    2InchtopShelf();
+    //2InchtopShelf();
+    1InchtopShelf();
 }
 //RodGuard();
 
@@ -81,7 +83,26 @@ module HalfInchHandel()
 
 }
 
+module ThreQuarterInchHandel()
+{
+        
+        HandelLength=ShelfWidth*2-HandelStub;
+        //echo ("Handel Length = ", HandelLength);
+        //echo ("Handel Stub Length = ", HandelStub);
+        //color([1,0,0])
+        translate([-(HandelStub/2),0,0])
+        rotate([0,0,90])ThreeQuarterInchSquareTubing(HandelLength,"TopShelf Handel Width");
+        
+        color([0,1,0])
+        rotate([90,00,0]) 
+            translate([0,0,HandelLength/2-ThreeQuarterInches/2])  
+                ThreeQuarterInchSquareTubing(HandelStub,"TopShelf Handel Stub");
 
+        rotate([90,00,0]) 
+            translate([0,0,-(HandelLength/2-ThreeQuarterInches/2)])  
+                ThreeQuarterInchSquareTubing(HandelStub);
+
+}
 module 2InchtopShelf()
 {
     color([.9,.9,.9])
@@ -108,17 +129,27 @@ module 2InchtopShelf()
 }
 module 1InchtopShelf()
 {
-    AlphaTig200();
-    translate ([0,ShelfWidth,(-Alpha200_height/2)+OneInches/4]) 1InchSquareTubing(ShelfLength);
-    translate ([0,-ShelfWidth,(-Alpha200_height/2)+OneInches/4]) 1InchSquareTubing(ShelfLength);
+    color([.9,.9,.9])
+    {
     
-    translate ([ShelfLength/2+TwoInches/2-13,0,(-Alpha200_height/2)+OneInches/4]) 
-        rotate([0,0,90])
-            1InchSquareTubing(ShelfWidth*2+25);
+            translate ([0,ShelfWidth+OneInches/2,(-Alpha200_height/2)+OneInches/4]) 1InchSquareTubing(ShelfLength,"TopShelf Length");
+            translate ([0,-ShelfWidth-OneInches/2,(-Alpha200_height/2)+OneInches/4]) 1InchSquareTubing(ShelfLength);
+            
+            translate ([ShelfLength/2+OneInches/2,0,(-Alpha200_height/2)+OneInches/4]) 
+                rotate([0,0,90])
+                    1InchSquareTubing(ShelfWidth*2+2,"TopShelf Width");
 
-    translate ([-(ShelfLength/2+38)+TwoInches/2,0,(-Alpha200_height/2)+OneInches/4]) 
-        rotate([0,0,90])
-            1InchSquareTubing(ShelfWidth*2+25);
+            //translate ([-(ShelfLength/2+50)+OneInches/2,0,(-Alpha200_height/2)+OneInches/4]) 
+            translate ([-(ShelfLength/2+OneInches/2),0,(-Alpha200_height/2)+OneInches/4]) 
+                rotate([0,0,90])
+                    1InchSquareTubing(ShelfWidth*2+2);
+
+            //Handel
+            rotate ([0,0,180])
+                translate ([-(HandelStub/2+ShelfLength/2+OneInches),0,-Alpha200_height/2])
+                    ThreQuarterInchHandel();
+
+    } 
     
 }
 
@@ -156,7 +187,7 @@ module 1InchSquareTubing(lengthMM = 245,name = "") //10 inches by default
 
 
 }
-module HalfInchSquareTubing(lengthMM = 245,name = "") //10 inches by default
+module HalfInchSquareTubing(lengthMM = 10,name = "") //10 inches by default
 {
     difference()
     {
@@ -174,6 +205,23 @@ module HalfInchSquareTubing(lengthMM = 245,name = "") //10 inches by default
 
 }
 
+module ThreeQuarterInchSquareTubing(lengthMM = 10,name = "") //10 inches by default
+{
+    difference()
+    {
+         cube ([lengthMM,
+        ThreeQuarterInches, 
+        ThreeQuarterInches], //2 inches OD
+        center=true) ;
+        cube ([lengthMM+5, ThreeQuarterInches - WallThickness,   ThreeQuarterInches- WallThickness],     center=true) ;        
+     }
+    if(name != "")
+     {
+         echo (name," = " ,lengthMM);             
+     }
+
+
+}
 
 
 
