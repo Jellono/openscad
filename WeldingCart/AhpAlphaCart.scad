@@ -6,7 +6,7 @@ ShelfLength = 25.5;
 ShelfWidth = 7;
 
 MiddleShelfWidth = 8;
-BottomShelfAdjustment = 9;
+BottomShelfAdjustment = 7.5;
 BottomShelfLength= ShelfLength+BottomShelfAdjustment;
 
 HandelStub=3;
@@ -21,17 +21,99 @@ HalfInches =0.5; //One Inches to MM;
 ThreeQuarterInches = 3/4;
 WallThickness = 1/16 ;
 
+//PerfPlate (ShelfWidth*2,ShelfLength+1);
+
 
 Shelves();
+SideStruts();
+BackUprights();
 Misc();
+TankStruts();
 
+module TankStruts()
+{
+    color([.9,.9,.9])
+    {
+        translate([-12.5,2,-34.25])
+        rotate([0,0,180])
+        OneInchAngleIron(24,"2 x Tank Struts");
+
+        translate([-12.5,-2,-34.25])
+        rotate([0,0,90])
+        OneInchAngleIron(24);
+    }
+}
+module OneInchAngleIron (length =11,name="")
+{
+    cube([OneInches,1/8,length]);
+    rotate([0,0,90])
+    cube([OneInches,1/8,length]);
+    
+      if(name != "")
+     {
+         echo (name," = " ,length);             
+     }
+}
+
+
+module PerfPlate(width,height,name="")
+{
+    //rotate([-TopShelfRotation,0,90])
+    //translate([-ShelfWidth,-13,-9.8])
+    difference()
+    {
+        cube ([width,height,0.036]);       
+        for (y=[0:5/16:height])
+        {
+            for (x=[0:5/16:width])
+            {
+                  echo ("x = " ,x);             
+                translate([x,y,0])
+                circle(.125);
+            }
+        }
+        
+    }
+    
+}
+
+module BackUprights()
+{
+
+    color([.9,.9,.9])
+    rotate([0,90,0])
+    {
+        translate([23,ShelfWidth+.5,-ShelfLength/2])
+            1InchSquareTubing(25,"2 x Back Uprights");
+        translate([23,-ShelfWidth-.5,-ShelfLength/2])
+            1InchSquareTubing(25);
+
+    }
+
+}
+module SideStruts()
+{
+    color([.9,.9,.9])
+    {
+        translate([-2,-ShelfWidth-1.55,-21])
+            rotate ([0,-50,0])
+                1InchSquareTubing(36,"2 x Side Struts");
+
+        translate([-2,ShelfWidth+1.55,-21])
+            rotate ([0,-50,0])
+                1InchSquareTubing(36);
+    }
+
+
+}
 
 module Misc()
 {
-    
+ 
     rotate([0,-TopShelfRotation,0])
         AlphaTig200();
-    translate([-17,0,-24])
+    
+    translate([-16,0,-24])
         ArgonTank55();
 
     translate([-15,-5,-22])
