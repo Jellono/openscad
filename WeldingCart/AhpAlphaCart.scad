@@ -2,7 +2,7 @@ Alpha200_length = 23;//23 inches
 Alpha200_width = 12;//12 inches
 Alpha200_height = 19;//19 inches
 
-ShelfLength = 25.5;
+ShelfLength = 25;
 ShelfWidth = 7;
 
 MiddleShelfWidth = 8;
